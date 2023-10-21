@@ -129,10 +129,9 @@ def generate_report(nclicks):
     if not nclicks:
         raise PreventUpdate 
     
-    main.process_image_and_generate_report()
+    rep_pdf = main.process_image_and_generate_report()
     report_status = "Status: Report generated successfully"
-    pdf_src = os.path.join('assets', 'report.pdf')
-    return (report_status, pdf_src)
+    return (report_status, rep_pdf)
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)

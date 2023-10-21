@@ -33,6 +33,6 @@ def resize_image(image_dict : dict, resized_folder_path : str, desired_height : 
         original_width, original_height = img.size
         new_width = int(new_height * original_width/original_height)
 
-        img = img.resize((new_width,new_height), Image.ANTIALIAS)
+        img = img.resize((new_width,new_height), Image.BICUBIC)
 
         img.save(output_folder)

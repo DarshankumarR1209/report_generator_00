@@ -3,6 +3,7 @@ import docx2pdf
 import shutil
 #user defined functions
 import images, word_doc, template_creation
+from uuid import uuid4
 
 
 def process_image_and_generate_report():
@@ -43,15 +44,17 @@ def process_image_and_generate_report():
     # Add second para
     template_creation.add_second_para(doc_path=doc_path)
 
+    rand_name = uuid4().hex
     # Save Report in PDF
     print("Process Start")
     # os.system("docx2pdf report.docx assets/report.pdf")
-    os.system("docx2pdf report.docx report.pdf")
-    source_path = os.path.join(os.getcwd(),'report.pdf')
+    os.system(f"docx2pdf report.docx assets/report_{rand_name}.pdf")
+    # source_path = os.path.join(os.getcwd(),'report.pdf')
     # print(source_path)
-    destination_path = os.path.join(os.getcwd(),'assets','report.pdf')
-    shutil.move(source_path,destination_path)
+    # destination_path = os.path.join(os.getcwd(),'assets','report.pdf')
+    # shutil.move(source_path,destination_path)
     print("Process end")
+    return f"assets/report_{rand_name}.pdf"
 
 if __name__ == "__main__":
     process_image_and_generate_report()

@@ -1,2 +1,8 @@
-docx
+python-docx
 docx2pdf
+dash
+dash_bootstrap_components
+pillow
+transformers
+torch
+tqdm

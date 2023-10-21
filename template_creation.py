@@ -1,6 +1,7 @@
 from docx import Document
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+import models
 
 def ceate_reoprt(resized_img_dict : dict, no_of_imgs : int, no_of_rows : int ):
 
@@ -61,6 +62,8 @@ def ceate_reoprt(resized_img_dict : dict, no_of_imgs : int, no_of_rows : int ):
         cell = table.cell(row_number, col_number)
         paragraph = cell.add_paragraph()
 
+        img_description = models.image2text(file_path)
+
         image_path = file_path
         run = paragraph.add_run()
         # run.add_picture(image_path, width = Pt(180), height = Pt(120))
@@ -68,7 +71,7 @@ def ceate_reoprt(resized_img_dict : dict, no_of_imgs : int, no_of_rows : int ):
         paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
         # Add file name
-        text_para = cell.add_paragraph(file_name)
+        text_para = cell.add_paragraph(img_description)
         text_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
         if col_number == no_of_cols - 1:
             col_number = 0
