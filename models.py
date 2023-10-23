@@ -5,7 +5,7 @@ from transformers import pipeline
 BLIP_BASE = "Salesforce/blip-image-captioning-base"
 BLIP_FINETUNED = r"./.cache/trained_accident"
 
-SELECTED_MODEL = BLIP_FINETUNED
+SELECTED_MODEL = BLIP_BASE
 
 def run_inference(task: str, model: str = None, inputs = None, gen_kwargs = {}):
     return pipeline(task, model=model, model_kwargs=dict(cache_dir=".cache/"))(inputs, generate_kwargs=gen_kwargs)
