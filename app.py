@@ -64,6 +64,21 @@ app.layout = dbc.Container([
         )
     ]),
 
+    html.Div(style={'margin-top': '10px'}),  # Add space between rows
+
+    # Indicator
+    dbc.Row(
+        dbc.Col(
+            dcc.Loading(
+                id= "loading-1",
+                type= 'default',
+                children=html.Div(id="loading-output-1")
+            )
+        )
+    ),
+
+    html.Div(style={'margin-top': '10px'}),  # Add space between rows
+
     # Embedded PDF
     dbc.Row(
         dbc.Col(
@@ -78,9 +93,10 @@ app.layout = dbc.Container([
 ])
 
 @app.callback(
-    Output('upload-info', 'children'),
-    Output('report-output', 'children', allow_duplicate= True),
-    Input('upload-data', 'contents'),
+    Output(component_id= 'upload-info', component_property= 'children'),
+    Output(component_id= 'report-output', component_property= 'children', allow_duplicate= True),
+    Output(component_id='pdf-viewer', component_property= 'style', allow_duplicate= True),
+    Input(component_id= 'upload-data', component_property= 'contents'),
     prevent_initial_call=True
 )
 def display_uploaded_images(contents):
@@ -90,7 +106,7 @@ def display_uploaded_images(contents):
     num_images = len(contents)
     upload_info = f'Number of images to be uploaded: {num_images}'
     images_uploaded = f'Status: Image(s) yet to be uploaded'
-    return (upload_info , images_uploaded)
+    return (upload_info , images_uploaded, {'display':'none'})
 
 @app.callback(
     Output('report-output', 'children', allow_duplicate=True),
@@ -122,16 +138,19 @@ def upload_image(n_clicks, uploaded_images):
 
 @app.callback(
     Output(component_id='report-output', component_property='children'),
+    Output(component_id= 'loading-1', component_property= "children"),
     Output(component_id='pdf-viewer', component_property= 'src'),
+    Output(component_id='pdf-viewer',component_property='style'),
     Input(component_id='generate-report-button',component_property='n_clicks')
 )
 def generate_report(nclicks):
     if not nclicks:
         raise PreventUpdate 
-    
+       
     rep_pdf = main.process_image_and_generate_report()
+    loading_value = ''
     report_status = "Status: Report generated successfully"
-    return (report_status, rep_pdf)
+    return (report_status, loading_value, rep_pdf,{'display':'block'})
 
 if __name__ == '__main__':
     app.run_server(debug=False)

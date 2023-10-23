@@ -5,7 +5,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
 def calc_number_of_rows(number_of_images: int):
-    num_of_cols_per_line = 3
+    num_of_cols_per_line = 2
     if number_of_images % num_of_cols_per_line == 0:
         return int(number_of_images / num_of_cols_per_line)
     else:

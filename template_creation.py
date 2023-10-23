@@ -1,5 +1,5 @@
 from docx import Document
-from docx.shared import Pt
+from docx.shared import Pt, Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import models
 
@@ -24,10 +24,10 @@ def ceate_reoprt(resized_img_dict : dict, no_of_imgs : int, no_of_rows : int ):
     no_of_cols = 0
     if no_of_imgs == 1:
         no_of_cols = 1
-    elif no_of_imgs == 2:
+    elif no_of_imgs >1 :
         no_of_cols = 2
-    elif no_of_imgs > 2:
-        no_of_cols = 3
+    # elif no_of_imgs > 2:
+    #     no_of_cols = 3
 
     table = doc.add_table(rows=no_of_rows, cols=no_of_cols)
     table.autofit = True  # Disable autofit
@@ -52,10 +52,10 @@ def ceate_reoprt(resized_img_dict : dict, no_of_imgs : int, no_of_rows : int ):
             row_number = 0
         elif item_number == 1:
             row_number = 0
-        elif item_number == 2:
-            row_number = 0
-        elif item_number > 2:
+        elif item_number > 1:
             row_number = item_number // no_of_cols
+        # elif item_number > 2:
+        #     row_number = item_number // no_of_cols
         print(f'Item Number is {item_number} and row number is {row_number} and column number is {col_number}')
         # for col_number in range(0,no_of_cols):
         
@@ -67,7 +67,7 @@ def ceate_reoprt(resized_img_dict : dict, no_of_imgs : int, no_of_rows : int ):
         image_path = file_path
         run = paragraph.add_run()
         # run.add_picture(image_path, width = Pt(180), height = Pt(120))
-        run.add_picture(image_path)
+        run.add_picture(image_path, height=Inches(2))
         paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
         # Add file name

@@ -17,23 +17,23 @@ def process_image_and_generate_report():
         print("There are no images to process in the specified folder.")
         sys.exit()
 
-    # Check if resize folder is available
-    resized_folder_dir = 'Resized'
-    resized_folder_path = os.path.join(uploaded_images_dir,resized_folder_dir)
-    # resized_folder_path = "F:\\phAIdelta\\Img Processing and Report Creation\\images\\resized_images"   
-    images.check_folder(resized_folder_path=resized_folder_path)
+    # # Check if resize folder is available
+    # resized_folder_dir = 'Resized'
+    # resized_folder_path = os.path.join(uploaded_images_dir,resized_folder_dir)
+    # # resized_folder_path = "F:\\phAIdelta\\Img Processing and Report Creation\\images\\resized_images"   
+    # images.check_folder(resized_folder_path=resized_folder_path)
 
-    # Resize images
-    images.resize_image(dict_image_names, resized_folder_path=resized_folder_path, desired_height= 100)  
+    # # Resize images
+    # images.resize_image(dict_image_names, resized_folder_path=resized_folder_path, desired_height= 100)  
 
-    # Get resized image details
-    no_of_resized_imgs, dict_image_names_resized =  images.count_files(resized_folder_path)
+    # # Get resized image details
+    # no_of_resized_imgs, dict_image_names_resized =  images.count_files(resized_folder_path)
 
     # Identify number of rows to be included in the table.
-    number_of_rows = word_doc.calc_number_of_rows(no_of_resized_imgs) 
+    number_of_rows = word_doc.calc_number_of_rows(no_of_imgs) 
 
     # Create Report
-    template_creation.ceate_reoprt(resized_img_dict = dict_image_names_resized ,no_of_imgs=no_of_resized_imgs,no_of_rows=number_of_rows)
+    template_creation.ceate_reoprt(resized_img_dict = dict_image_names ,no_of_imgs=no_of_imgs,no_of_rows=number_of_rows)
 
     # Add headers and footers
     company_logo = 'logo.jpeg'
